@@ -2,6 +2,8 @@
 Lightweight party management system
 http://wuhu.function.hu
 
+This is a fork of Wuhu for Graffathon events. Support for Docker has been added.
+
 ## Requirements
 
 ### Server side:
