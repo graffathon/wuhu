@@ -21,4 +21,4 @@ COPY www_party /var/www/www_party
 # Run setup script (confiure apache etc.)
 RUN bash /setup.sh
 
-CMD apachectl -D FOREGROUND
+CMD chown -R www-data:www-data /var/www/* && apachectl -D FOREGROUND
