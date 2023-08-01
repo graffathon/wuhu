@@ -9,8 +9,6 @@ mkdir /var/www/entries_private
 mkdir /var/www/entries_public
 mkdir /var/www/screenshots
 mkdir /var/www/exports
-#touch /var/www/www_party/database.inc.php
-#touch /var/www/www_admin/database.inc.php
 
 chmod -R g+rw /var/www/*
 chown -R www-data:www-data /var/www/*

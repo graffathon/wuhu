@@ -4,6 +4,7 @@
   if ($_GET["download"])
   {
     $entry = SQLLib::selectRow(sprintf_esc("select * from compoentries where id=%d",$_GET["download"]));
+    $compo = SQLLib::selectRow(sprintf_esc("select id, dirname from compos where id=%d", $entry->compoid));
     $dirname = get_compoentry_dir_path($entry);
     
     $path = $dirname . $entry->filename;
@@ -12,7 +13,9 @@
       printf("<div class='error'>Failed to read %s</div>",$path);
     } else {
       header("Content-type: application/octet-stream");
-      header("Content-disposition: attachment; filename=\"".basename($entry->filename)."\"");
+      $author_escaped = preg_replace('/[^A-Za-z0-9_\-]/', '_', $entry->author);
+      $title_escaped = preg_replace('/[^A-Za-z0-9_\-]/', '_', $entry->title);
+      header("Content-disposition: attachment; filename=\"".$compo->dirname."-".$entry->playingorder."-".$author_escaped."-".$title_escaped."-".basename($entry->filename)."\"");
       header("Content-length: ".filesize($path));
       echo $data;
     }
