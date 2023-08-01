@@ -2,7 +2,18 @@
 Lightweight party management system
 http://wuhu.function.hu
 
+## Graffathon fork
 This is a fork of Wuhu for Graffathon events. Support for Docker has been added.
+We have implemented some changes that we found useful in our event.
+
+### Docker setup
+The container exopses two ports, 5000 and 5001. Port 5000 is for the party site
+and port 5001 is for the admin site. Configure a reverse proxy like Nginx in front of this container. It is recommended to secure the admin site with basic auth etc.
+
+An example docker-compose.yml file is provided [here](./docker-compose.yml).
+It will launch the wuhu and MySQL containers.
+
+Use ```docker compose -d``` to start the application.
 
 ## Requirements
 

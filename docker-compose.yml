@@ -1,0 +1,35 @@
+version: "3"
+services:
+  wuhu:
+    image: docker.io/lukxsx/wuhu:latest
+    container_name: wuhu
+    ports:
+      - 5000:5000
+      - 5001:5001
+    environment:
+      - TZ=Europe/Helsinki
+    volumes:
+      - /opt/docker/wuhu/compo_entries:/var/www/entries_private
+      - /opt/docker/wuhu/exports:/var/www/exports
+      - /opt/docker/wuhu/screenshots:/var/www/screenshots
+      - /opt/docker/wuhu/template.html:/var/www/www_party/template.html
+# After running the wuhu setup wizard, copy these files from the container to the host
+# Then stop the container and uncomment these volume mounts
+#      - /opt/docker/wuhu/database-admin.inc.php:/var/www/www_admin/database.inc.php
+#      - /opt/docker/wuhu/database-party.inc.php:/var/www/www_party/database.inc.php
+    restart: unless-stopped
+    networks:
+      - wuhu_net
+  mysql:
+    image: mysql:8
+    container_name: wuhu_mysql
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    env_file: mysql.env
+    volumes:
+      - /opt/docker/wuhu/mysql_data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - wuhu_net
+
+networks:
+  wuhu_net:
