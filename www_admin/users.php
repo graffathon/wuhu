@@ -95,10 +95,11 @@ run_hook("admin_edituser_beforeactions",array("user"=>$user));
       } break;
   }
 
-  $s = SQLLib::selectRows("select *, ".
+  $s = SQLLib::selectRows("select u.*, ".
      " (".$sq.") as votes, ".
-     " (select count(*) from compoentries where compoentries.userid = u.id) as entries ".
-     " from users as u order by regtime");
+     " (select count(*) from compoentries where compoentries.userid = u.id) as entries, ".
+     " vk.votekey ".
+     " from users as u left join votekeys as vk on u.id = vk.userid order by regtime");
   foreach($s as $t) {
     printf("<tr>");
     printf("  <td>%d.</td>",$n++);
@@ -110,6 +111,7 @@ run_hook("admin_edituser_beforeactions",array("user"=>$user));
     printf("  <td>%s</td>",htmlspecialchars($t->regtime));
     printf("  <td>%d votes</td>",htmlspecialchars($t->votes));
     printf("  <td>%d entries</td>",htmlspecialchars($t->entries));
+    printf("  <td>%s</td>",htmlspecialchars($t->votekey));
     printf("</tr>");
   }
   printf("</table>");
