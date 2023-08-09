@@ -218,7 +218,9 @@ foreach($s as $t) {
   <td>
 <?php if ($id) { ?>
   <div>
-    <img src='screenshot.php?id=<?=(int)$id?>&amp;show=thumb' alt='thumb'/>
+    <a href='screenshot.php?id=<?=(int)$id?>' target='_blank'>
+      <img src='screenshot.php?id=<?=(int)$id?>&amp;show=thumb' alt='thumb'/>
+    </a>
   </div>
 <?php } ?>
   <input name="screenshot" type="file" class="inputfield" accept="image/*" />
